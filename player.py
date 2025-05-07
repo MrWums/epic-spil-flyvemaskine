@@ -29,7 +29,6 @@ class player_class:
         if self.jumping == True:
             self.velocity -= self.speed
 
-
         # Dark magic
         self.y += self.velocity
         if self.y >= self.ground:

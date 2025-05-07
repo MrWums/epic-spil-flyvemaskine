@@ -2,6 +2,8 @@ import pygame
 from player import player_class
 from map import map_class
 
+
+#game setup stuff
 pygame.init()
 screenwidth, screenheight = pygame.display.Info().current_w, pygame.display.Info().current_h
 display = pygame.display.set_mode((screenwidth,screenheight))
@@ -13,7 +15,7 @@ ground_sprite = pygame.image.load("images/ground.png")
 
 player = player_class(display,plane_sprite,screenheight)
 
-map = map_class(display,tower_sprite,ground_sprite,(0,screenheight-100),(2500,100))
+map = map_class(display,tower_sprite,ground_sprite,(0,screenheight-100),(2500,screenheight-668))
 
 while True:
     clock.tick(60)
@@ -24,7 +26,10 @@ while True:
     map_pos = pygame.Vector2(map.update())
 
     if player_pos.x >= map_pos.x:
-        print("yeet")
+        if player_pos.y > map_pos.y:
+            print("you hit")
+        else:
+            print("yeet")
 
     for i in range(10):
         map.draw(i)
