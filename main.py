@@ -12,7 +12,7 @@ tower_sprite = pygame.image.load("images/tower.png")
 ground_sprite = pygame.image.load("images/ground.png")
 
 player = player_class(display,plane_sprite)
-map = map_class(display,tower_sprite,ground_sprite,(1000,screenheight-150),(2500,100))
+map = map_class(display,tower_sprite,ground_sprite,(1000,screenheight-100),(2500,100))
 
 while True:
     clock.tick(60)
