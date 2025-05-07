@@ -25,10 +25,10 @@ while True:
     player_pos = pygame.Vector2(player.update(event))
     map_pos = map.update()
 
-    if player_pos.x >= map_pos.x:
+    if map_pos.x+151 >= player_pos.x >= map_pos.x:
         if player_pos.y > map_pos.y:
             print("you hit!")
-            points = (player_pos.y-map_pos.y)//2.48
+            points = int((player_pos.y-map_pos.y)//5)
             print(f"You got {points}/100 points!")
             exit()
         else:

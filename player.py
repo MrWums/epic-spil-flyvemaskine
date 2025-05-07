@@ -7,7 +7,7 @@ class player_class:
     def __init__(self,display,image,y):
         self.x = 100
         self.y = y/2
-        self.ground = y-295
+        self.ground = y-235
         self.velocity = 0
         self.display = display
         self.image = image
@@ -34,16 +34,16 @@ class player_class:
         if self.y >= self.ground:
             self.velocity = 0
             self.y = self.ground
-        elif self.y <= -55:
+        elif self.y <= 0:
             self.velocity = +0.1
-            self.y = -55
+            self.y = 0
         else:
             self.velocity += self.gravity
 
         self.draw()
 
-        # returnerer koordinaterne til spidsen af flyet (roughly)
-        return self.x+225,self.y - 125
+        # returnerer koordinaterne til nederst højre hjørne af flyet (roughly)
+        return self.x + 446/2, self.y + 271/4
 
     def draw(self):
         self.display.blit(self.image,(self.x,self.y))
