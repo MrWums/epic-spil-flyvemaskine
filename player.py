@@ -25,9 +25,11 @@ class player_class:
                 if event.key == pygame.K_w:
                     self.jumping = False
 
+        # Y-akse movement stuff
         if self.jumping == True:
             self.velocity -= self.speed
 
+        # Dark magic
         self.y += self.velocity
         if self.y >= self.ground:
             self.velocity = 0
