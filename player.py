@@ -1,8 +1,8 @@
 import pygame
 
 class player_class:
-    speed = 0.025
-    gravity = 0.01
+    speed = 3
+    gravity = 1
     jumping = False
     def __init__(self,display,image):
         self.x = 100
