@@ -7,7 +7,7 @@ class player_class:
     def __init__(self,display,image,y):
         self.x = 100
         self.y = y/2
-        self.ground = y-100
+        self.ground = y-295
         self.velocity = 0
         self.display = display
         self.image = image
@@ -29,14 +29,22 @@ class player_class:
         if self.jumping == True:
             self.velocity -= self.speed
 
+
         # Dark magic
         self.y += self.velocity
         if self.y >= self.ground:
             self.velocity = 0
             self.y = self.ground
+        elif self.y <= -55:
+            self.velocity = +0.1
+            self.y = -55
         else:
             self.velocity += self.gravity
 
         self.draw()
+
+        # returnerer koordinaterne til spidsen af flyet (roughly)
+        return self.y - 125, self.x+250
+
     def draw(self):
         self.display.blit(self.image,(self.x,self.y))
