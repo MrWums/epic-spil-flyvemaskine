@@ -43,7 +43,7 @@ class player_class:
         self.draw()
 
         # returnerer koordinaterne til spidsen af flyet (roughly)
-        return self.y - 125, self.x+250
+        return self.x+225,self.y - 125
 
     def draw(self):
         self.display.blit(self.image,(self.x,self.y))

@@ -14,7 +14,7 @@ class map_class:
         self.ground_pos.x -= self.speed
         self.tower_pos.x -= self.speed
 
-        return self.tower_pos.x,self.tower_pos.y
+        return self.tower_pos
 
     def draw(self,map_number):
         self.display.blit(self.ground_image,(self.ground_pos.x+self.ground_width*map_number,self.ground_pos.y))
