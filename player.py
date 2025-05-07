@@ -19,7 +19,7 @@ class player_class:
                     self.jumping = True
 
                 if event.key == pygame.K_ESCAPE:
-                    exit()
+                    return "quit"
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
@@ -43,7 +43,7 @@ class player_class:
         self.draw()
 
         # returnerer koordinaterne til nederst højre hjørne af flyet (roughly)
-        return self.x + 446/2, self.y + 271/4
+        return pygame.Vector2(self.x + 446/2, self.y + 271/4)
 
     def draw(self):
         self.display.blit(self.image,(self.x,self.y))
