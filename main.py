@@ -11,8 +11,9 @@ plane_sprite = pygame.transform.scale_by(pygame.image.load("images/plane.png"),0
 tower_sprite = pygame.image.load("images/tower.png")
 ground_sprite = pygame.image.load("images/ground.png")
 
-player = player_class(display,plane_sprite)
-map = map_class(display,tower_sprite,ground_sprite,(1000,screenheight-100),(2500,100))
+player = player_class(display,plane_sprite,screenheight-100)
+
+map = map_class(display,tower_sprite,ground_sprite,(0,screenheight-100),(2500,100))
 
 while True:
     clock.tick(60)
@@ -21,5 +22,8 @@ while True:
 
     player.update(event)
     map.update()
+
+    for i in range(10):
+        map.draw(i)
 
     pygame.display.flip()

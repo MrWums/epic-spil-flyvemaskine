@@ -4,10 +4,10 @@ class player_class:
     speed = 3
     gravity = 1
     jumping = False
-    def __init__(self,display,image):
+    def __init__(self,display,image,y):
         self.x = 100
-        self.y = 400
-        self.ground = self.y
+        self.y = y/2
+        self.ground = y-100
         self.velocity = 0
         self.display = display
         self.image = image
