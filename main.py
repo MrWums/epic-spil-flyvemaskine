@@ -15,6 +15,8 @@ tower_sprite = pygame.image.load("images/tower.png")
 ground_sprite = pygame.image.load("images/ground.png")
 tutorial = pygame.transform.scale_by(pygame.image.load("images/tutorial.png"),0.68)
 
+map_length = 100
+
 #----------------------Menu stuff------------------------------
 font = pygame.font.SysFont("Arial", 30)
 textcolor = (0, 0, 0)
@@ -56,7 +58,6 @@ while True:
                 if event.key == pygame.K_ESCAPE:
                     gamestate = "menu"
 
-
     if gamestate == "game":
         clock.tick(60)
         display.fill((6,97,170))
@@ -75,7 +76,7 @@ while True:
                     points = int((player_pos.y-map_pos.y)//5)
                     gamestate = "win_screen"
 
-        for i in range(10):
+        for i in range(map_length):
             map.draw(i)
 
     if gamestate == "win_screen":

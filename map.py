@@ -18,4 +18,5 @@ class map_class:
 
     def draw(self,map_number):
         self.display.blit(self.ground_image,(self.ground_pos.x+self.ground_width*map_number,self.ground_pos.y))
-        self.display.blit(self.tower_image,self.tower_pos)
+        if map_number == 0:
+            self.display.blit(self.tower_image,self.tower_pos)
