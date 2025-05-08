@@ -1,7 +1,7 @@
 import pygame
 from player import player_class
 from map import map_class
-from knap import knap_class
+from knap import knap_class, text
 
 
 #-------------------game setup stuff---------------------------
@@ -21,17 +21,24 @@ map_length = 100
 font = pygame.font.SysFont("Arial", 30)
 textcolor = (0, 0, 0)
 
+# Knapper
 start_knap = knap_class(screenwidth/2, screenheight*0.25, 100, 100, "Start", font, textcolor)
 tutorial_knap = knap_class(screenwidth/2, screenheight*0.5, 100, 100, "How to play", font, textcolor)
 quit_knap = knap_class(screenwidth/2, screenheight*0.75, 100, 100, "Quit", font, textcolor)
 back_knap = knap_class(screenwidth/4, screenheight*0.5, 100, 100, "Back", font, textcolor)
+
+# Farver
+dark_red = (105,0,17)
+sky_blue = (6,97,170)
+black = (0,0,0)
+white = (255,255,255)
 
 gamestate = "menu"
 
 while True:
     events = pygame.event.get()
     if gamestate == "menu":
-        display.fill((6,97,170))
+        display.fill(sky_blue)
         start_knap.draw(display)
         tutorial_knap.draw(display)
         quit_knap.draw(display)
@@ -50,7 +57,7 @@ while True:
 
 
     if gamestate == "tutorial":
-        display.fill((6, 97, 170))
+        display.fill(sky_blue)
         display.blit(tutorial,(0,0))
 
         for event in events:
@@ -60,10 +67,10 @@ while True:
 
     if gamestate == "game":
         clock.tick(60)
-        display.fill((6,97,170))
+        display.fill(sky_blue)
 
         player_pos = player.update(events)
-        map_pos = map.update()
+        map_pos = map.update(player.started)
 
         # Det her er kinda scuffed og jeg forstår det kun halvt selv haha. Player_pos kan både return en vector med den position eller "quit"
         if player_pos == "quit":
@@ -76,21 +83,19 @@ while True:
                     points = int((player_pos.y-map_pos.y)//5)
                     gamestate = "win_screen"
 
+        # Tegn ground texture tingen x antal gange efter hinanden
         for i in range(map_length):
-            map.draw(i)
+            map.draw(i,player.started)
+
+        # Text der siger press W to start
+        #text = font.render("Wrong target, don't aim for Pentagon", True, (105, 0, 17), (0, 0, 0))
+        #textRect = text.get_rect()
+        #textRect.center = (screenwidth / 2, screenheight / 2)
 
     if gamestate == "win_screen":
-        display.fill((6, 97, 170))
-        text1 = font.render(f"You got {points}/100 points!",True,(0,0,0),(6,97,170))
-        text2 = font.render("Press ESC to return to menu",True,(0,0,0),(6,97,170))
+        display.fill(sky_blue)
 
-        text1Rect = text1.get_rect()
-        text1Rect.center = (screenwidth/2,screenheight/2)
-        text2Rect = text2.get_rect()
-        text2Rect.center = (screenwidth/2,(screenheight/2)+100)
-
-        display.blit(text1,text1Rect)
-        display.blit(text2,text2Rect)
+        text(display,screenwidth/2,screenheight/2,f"You got {points}/100 points!",font,white,sky_blue)
 
         for event in events:
             if event.type == pygame.KEYDOWN:
@@ -98,17 +103,9 @@ while True:
                     gamestate = "menu"
 
     if gamestate == "dead":
-        display.fill((0,0,0))
-        text1 = font.render("Wrong target, don't aim for Pentagon", True, (105,0,17), (0,0,0))
-        text2 = font.render("Press ESC to return to menu", True, (105,0,17), (0,0,0))
-
-        text1Rect = text1.get_rect()
-        text1Rect.center = (screenwidth / 2, screenheight / 2)
-        text2Rect = text2.get_rect()
-        text2Rect.center = (screenwidth / 2, (screenheight / 2) + 100)
-
-        display.blit(text1, text1Rect)
-        display.blit(text2, text2Rect)
+        display.fill(black)
+        text(display, screenwidth/2,screenheight/2-50, "Wrong target, don't aim for Pentagon", font, dark_red, black)
+        text(display,screenwidth/2,(screenheight/2)+50,"Press ESC to return to menu",font,dark_red,black)
 
         for event in events:
             if event.type == pygame.KEYDOWN:
