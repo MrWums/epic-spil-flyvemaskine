@@ -1,21 +1,25 @@
 import pygame
 from player import player_class
 from map import map_class
-from knap import knap_class, text
+from important_stuff import knap_class, text, explosion_class
 
 
 #-------------------game setup stuff---------------------------
 pygame.init()
+pygame.mixer.init()
 screenwidth, screenheight = pygame.display.Info().current_w, pygame.display.Info().current_h
 display = pygame.display.set_mode((screenwidth,screenheight))
 clock = pygame.time.Clock()
 
-plane_sprite = pygame.transform.scale_by(pygame.image.load("images/plane.png"),0.5)
-tower_sprite = pygame.image.load("images/tower.png")
-ground_sprite = pygame.image.load("images/ground.png")
-tutorial = pygame.transform.scale_by(pygame.image.load("images/tutorial.png"),0.68)
+plane_sprite = pygame.transform.scale_by(pygame.image.load("assets/plane.png"), 0.5)
+tower_sprite = pygame.image.load("assets/tower.png")
+ground_sprite = pygame.image.load("assets/ground.png")
+tutorial = pygame.transform.scale_by(pygame.image.load("assets/tutorial.png"), 0.68)
 
 map_length = 100
+
+# Don't know wtf this is but it works
+explosion_group = pygame.sprite.Group()
 
 #----------------------Menu stuff------------------------------
 font = pygame.font.SysFont("Arial", 30)
@@ -34,9 +38,14 @@ black = (0,0,0)
 white = (255,255,255)
 
 gamestate = "menu"
+wait = True
 
 while True:
     events = pygame.event.get()
+
+    explosion_group.draw(display)
+    explosion_group.update()
+
     if gamestate == "menu":
         display.fill(sky_blue)
         start_knap.draw(display)
@@ -82,7 +91,6 @@ while True:
                 if player_pos.y > map_pos.y:
                     points = int((player_pos.y-map_pos.y)//5)
                     gamestate = "win_screen"
-                    wait = True
 
         # Tegn ground texture tingen x antal gange efter hinanden
         for i in range(map_length):
@@ -94,12 +102,15 @@ while True:
 
     if gamestate == "win_screen":
         display.fill(sky_blue)
+
         if wait == True:
+            explosion = explosion_class(100, 100)
+            explosion_group.add(explosion)
+            wait = False
             for i in range(500):
                 for i in range(map_length):
                     map.draw(i, player.started)
                 player.draw()
-            wait = False
 
         text(display,screenwidth/2,screenheight/2,f"Congratulations! You hit the target and got {points}/100 points!",font,white,sky_blue)
 

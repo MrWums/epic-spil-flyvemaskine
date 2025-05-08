@@ -1,10 +1,22 @@
 import pygame
+class knap_class:
+   def __init__(self,x,y,width,height,text,font,textcolor):
+       self.font = font
+       self.textcolor = textcolor
+       self.text = text
+       self.rect = pygame.Rect(x-width/2,y-height/2,width,height)
 
-pygame.mixer.init()
-pygame.init()
-screenwidth, screenheight = pygame.display.Info().current_w, pygame.display.Info().current_h
-display = pygame.display.set_mode((screenwidth,screenheight))
-clock = pygame.time.Clock()
+   def draw(self,display):
+       pygame.draw.rect(display, (150, 192, 192), self.rect)
+       text_surface = self.font.render(self.text, True, self.textcolor)
+       text_rect = text_surface.get_rect(center=self.rect.center)
+       display.blit(text_surface, text_rect)
+
+   def klik(self,event):
+       if event.type == pygame.MOUSEBUTTONDOWN:
+           if self.rect.collidepoint(event.pos):
+               return True
+       return False
 
 class explosion_class(pygame.sprite.Sprite):
     sound_played = False
@@ -38,19 +50,9 @@ class explosion_class(pygame.sprite.Sprite):
         if self.index >= len(self.images) - 1 and self.counter >= explosion_speed:
             self.kill()
 
-explosion_group = pygame.sprite.Group()
 
-while True:
-    clock.tick(60)
-    display.fill((255,255,255))
-
-    explosion_group.draw(display)
-    explosion_group.update()
-
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
-                explosion = explosion_class(100,100)
-                explosion_group.add(explosion)
-
-    pygame.display.flip()
+def text(display,x,y,text,font,text_color,background_color):
+    text = font.render(text, True, text_color, background_color)
+    textRect = text.get_rect()
+    textRect.center = (x,y)
+    display.blit(text,textRect)
