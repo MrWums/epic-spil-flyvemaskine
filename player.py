@@ -32,8 +32,7 @@ class player_class:
         # Dark magic
         self.y += self.velocity
         if self.y >= self.ground:
-            self.velocity = 0
-            self.y = self.ground
+            return "dead"
         elif self.y <= 0:
             self.velocity = +0.1
             self.y = 0

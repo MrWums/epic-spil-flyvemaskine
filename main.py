@@ -67,6 +67,8 @@ while True:
         # Det her er kinda scuffed og jeg forstår det kun halvt selv haha. Player_pos kan både return en vector med den position eller "quit"
         if player_pos == "quit":
             gamestate = "menu"
+        elif player_pos == "dead":
+            gamestate = "dead"
         else:
             if map_pos.x+151 >= player_pos.x >= map_pos.x:
                 if player_pos.y > map_pos.y:
@@ -88,6 +90,24 @@ while True:
 
         display.blit(text1,text1Rect)
         display.blit(text2,text2Rect)
+
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    gamestate = "menu"
+
+    if gamestate == "dead":
+        display.fill((0,0,0))
+        text1 = font.render("Wrong target, don't aim for Pentagon", True, (105,0,17), (0,0,0))
+        text2 = font.render("Press ESC to return to menu", True, (105,0,17), (0,0,0))
+
+        text1Rect = text1.get_rect()
+        text1Rect.center = (screenwidth / 2, screenheight / 2)
+        text2Rect = text2.get_rect()
+        text2Rect.center = (screenwidth / 2, (screenheight / 2) + 100)
+
+        display.blit(text1, text1Rect)
+        display.blit(text2, text2Rect)
 
         for event in events:
             if event.type == pygame.KEYDOWN:
