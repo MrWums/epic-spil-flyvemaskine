@@ -21,7 +21,7 @@ textcolor = (0, 0, 0)
 start_knap = knap_class(screenwidth/2, screenheight*0.25, 100, 100, "Start", font, textcolor)
 tutorial_knap = knap_class(screenwidth/2, screenheight*0.5, 100, 100, "How to play", font, textcolor)
 quit_knap = knap_class(screenwidth/2, screenheight*0.75, 100, 100, "Quit", font, textcolor)
-back_knap = knap_class(screenwidth/2, screenheight*0.6, 100, 100, "Back", font, textcolor)
+back_knap = knap_class(screenwidth/4, screenheight*0.5, 100, 100, "Back", font, textcolor)
 
 gamestate = "menu"
 
@@ -54,7 +54,6 @@ while True:
         for event in events:
             if back_knap.klik(event):
                 gamestate = "menu"
-                print("aaaaaaaaa")
 
         pygame.display.flip()
 
@@ -71,14 +70,19 @@ while True:
         else:
             if map_pos.x+151 >= player_pos.x >= map_pos.x:
                 if player_pos.y > map_pos.y:
-                    print("you hit!")
                     points = int((player_pos.y-map_pos.y)//5)
                     print(f"You got {points}/100 points!")
-                    exit()
+                    gamestate = "win_screen"
                 else:
                     print("yeet")
 
         for i in range(10):
             map.draw(i)
 
+        pygame.display.flip()
+
+    if gamestate == "win_screen":
+        display.fill((6, 97, 170))
+        text = font.render("Yeet",True,(0,0,0),(6,97,170))
+        display.blit(text,text.get_rect())
         pygame.display.flip()
