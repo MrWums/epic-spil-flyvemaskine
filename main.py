@@ -2,6 +2,7 @@ import pygame
 from player import player_class
 from map import map_class
 from important_stuff import knap_class, text, explosion_class
+import time
 
 
 #-------------------game setup stuff---------------------------
@@ -38,13 +39,13 @@ black = (0,0,0)
 white = (255,255,255)
 
 gamestate = "menu"
-wait = True
 
 while True:
+    clock.tick(60)
     events = pygame.event.get()
-
     explosion_group.draw(display)
     explosion_group.update()
+
 
     if gamestate == "menu":
         display.fill(sky_blue)
@@ -74,8 +75,8 @@ while True:
                 if event.key == pygame.K_ESCAPE:
                     gamestate = "menu"
 
+
     if gamestate == "game":
-        clock.tick(60)
         display.fill(sky_blue)
 
         player_pos = player.update(events)
@@ -91,6 +92,7 @@ while True:
                 if player_pos.y > map_pos.y:
                     points = int((player_pos.y-map_pos.y)//5)
                     gamestate = "win_screen"
+                    wait = True
 
         # Tegn ground texture tingen x antal gange efter hinanden
         for i in range(map_length):
@@ -100,24 +102,27 @@ while True:
         if player.started == False:
             text(display,screenwidth/2,screenheight/2,"Press W to start",font,white,sky_blue)
 
+
     if gamestate == "win_screen":
-        display.fill(sky_blue)
 
         if wait == True:
-            explosion = explosion_class(100, 100)
+            win_timer = pygame.time.get_ticks()
+            explosion = explosion_class(player.x+250, player.y+30)
             explosion_group.add(explosion)
             wait = False
-            for i in range(500):
-                for i in range(map_length):
-                    map.draw(i, player.started)
-                player.draw()
 
-        text(display,screenwidth/2,screenheight/2,f"Congratulations! You hit the target and got {points}/100 points!",font,white,sky_blue)
+        if pygame.time.get_ticks() - win_timer > 2000:
 
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    gamestate = "menu"
+            display.fill(sky_blue)
+
+            text(display,screenwidth/2,screenheight/2-50,f"Congratulations! You hit the target and got {points}/100 points!",font,white,sky_blue)
+            text(display, screenwidth/2,screenheight/2+50,"Press ESC to return to menu", font, white, sky_blue)
+
+            for event in events:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        gamestate = "menu"
+
 
     if gamestate == "dead":
         display.fill(black)

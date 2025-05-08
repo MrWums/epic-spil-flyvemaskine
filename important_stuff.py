@@ -33,7 +33,7 @@ class explosion_class(pygame.sprite.Sprite):
         self.counter = 0
 
     def update(self):
-        explosion_speed = 6
+        explosion_speed = 10
 
         self.counter += 1
         if self.sound_played == False:
