@@ -82,6 +82,7 @@ while True:
                 if player_pos.y > map_pos.y:
                     points = int((player_pos.y-map_pos.y)//5)
                     gamestate = "win_screen"
+                    wait = True
 
         # Tegn ground texture tingen x antal gange efter hinanden
         for i in range(map_length):
@@ -93,6 +94,12 @@ while True:
 
     if gamestate == "win_screen":
         display.fill(sky_blue)
+        if wait == True:
+            for i in range(500):
+                for i in range(map_length):
+                    map.draw(i, player.started)
+                player.draw()
+            wait = False
 
         text(display,screenwidth/2,screenheight/2,f"Congratulations! You hit the target and got {points}/100 points!",font,white,sky_blue)
 
