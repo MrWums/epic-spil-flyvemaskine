@@ -45,7 +45,6 @@ while True:
             if quit_knap.klik(event):
                 exit()
 
-        pygame.display.flip()
 
     if gamestate == "tutorial":
         display.fill((6, 97, 170))
@@ -55,7 +54,6 @@ while True:
             if back_knap.klik(event):
                 gamestate = "menu"
 
-        pygame.display.flip()
 
     if gamestate == "game":
         clock.tick(60)
@@ -79,10 +77,22 @@ while True:
         for i in range(10):
             map.draw(i)
 
-        pygame.display.flip()
-
     if gamestate == "win_screen":
         display.fill((6, 97, 170))
-        text = font.render("Yeet",True,(0,0,0),(6,97,170))
-        display.blit(text,text.get_rect())
-        pygame.display.flip()
+        text1 = font.render(f"You got {points}/100 points!",True,(0,0,0),(6,97,170))
+        text2 = font.render("Press ESC to return to menu",True,(0,0,0),(6,97,170))
+
+        text1Rect = text1.get_rect()
+        text1Rect.center = (screenwidth/2,screenheight/2)
+        text2Rect = text2.get_rect()
+        text2Rect.center = (screenwidth/2,(screenheight/2)+100)
+
+        display.blit(text1,text1Rect)
+        display.blit(text2,text2Rect)
+
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    gamestate = "menu"
+
+    pygame.display.flip()
