@@ -13,6 +13,7 @@ clock = pygame.time.Clock()
 plane_sprite = pygame.transform.scale_by(pygame.image.load("images/plane.png"),0.5)
 tower_sprite = pygame.image.load("images/tower.png")
 ground_sprite = pygame.image.load("images/ground.png")
+tutorial = pygame.transform.scale_by(pygame.image.load("images/tutorial.png"),0.68)
 
 #----------------------Menu stuff------------------------------
 font = pygame.font.SysFont("Arial", 30)
@@ -48,11 +49,12 @@ while True:
 
     if gamestate == "tutorial":
         display.fill((6, 97, 170))
-        back_knap.draw(display)
+        display.blit(tutorial,(0,0))
 
         for event in events:
-            if back_knap.klik(event):
-                gamestate = "menu"
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    gamestate = "menu"
 
 
     if gamestate == "game":
@@ -69,10 +71,7 @@ while True:
             if map_pos.x+151 >= player_pos.x >= map_pos.x:
                 if player_pos.y > map_pos.y:
                     points = int((player_pos.y-map_pos.y)//5)
-                    print(f"You got {points}/100 points!")
                     gamestate = "win_screen"
-                else:
-                    print("yeet")
 
         for i in range(10):
             map.draw(i)
