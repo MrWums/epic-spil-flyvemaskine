@@ -17,3 +17,9 @@ class knap_class:
            if self.rect.collidepoint(event.pos):
                return True
        return False
+
+def text(display,x,y,text,font,text_color,background_color):
+    text = font.render(text, True, text_color, background_color)
+    textRect = text.get_rect()
+    textRect.center = (x,y)
+    display.blit(text,textRect)

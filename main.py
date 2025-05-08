@@ -88,14 +88,13 @@ while True:
             map.draw(i,player.started)
 
         # Text der siger press W to start
-        #text = font.render("Wrong target, don't aim for Pentagon", True, (105, 0, 17), (0, 0, 0))
-        #textRect = text.get_rect()
-        #textRect.center = (screenwidth / 2, screenheight / 2)
+        if player.started == False:
+            text(display,screenwidth/2,screenheight/2,"Press W to start",font,white,sky_blue)
 
     if gamestate == "win_screen":
         display.fill(sky_blue)
 
-        text(display,screenwidth/2,screenheight/2,f"You got {points}/100 points!",font,white,sky_blue)
+        text(display,screenwidth/2,screenheight/2,f"Congratulations! You hit the target and got {points}/100 points!",font,white,sky_blue)
 
         for event in events:
             if event.type == pygame.KEYDOWN:
