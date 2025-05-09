@@ -5,13 +5,14 @@ class player_class:
     gravity = 0
     jumping = False
     started = False
-    def __init__(self,display,image,y):
+    def __init__(self,display,image,y,scale_factor):
         self.x = 100
-        self.y = y/2
-        self.ground = y-235
+        self.y = y/2*scale_factor
+        self.ground = y-235*scale_factor
         self.velocity = 0
         self.display = display
         self.image = image
+        self.scale_factor = scale_factor
 
     def update(self,event):
         for event in event:
@@ -45,7 +46,7 @@ class player_class:
         self.draw()
 
         # returnerer koordinaterne til nederst højre hjørne af flyet (roughly)
-        return pygame.Vector2(self.x + 446/2, self.y + 271/4)
+        return pygame.Vector2(self.x + (446/2)*self.scale_factor, self.y + (271/4)*self.scale_factor)
 
     def draw(self):
         self.display.blit(self.image,(self.x,self.y))

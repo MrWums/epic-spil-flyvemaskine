@@ -2,20 +2,25 @@ import pygame
 from player import player_class
 from map import map_class
 from important_stuff import knap_class, text, explosion_class
-import time
 
 
 #-------------------game setup stuff---------------------------
 pygame.init()
 pygame.mixer.init()
+
 screenwidth, screenheight = pygame.display.Info().current_w, pygame.display.Info().current_h
 display = pygame.display.set_mode((screenwidth,screenheight))
+base_w,base_h = 1920,1080
+scale_x = screenwidth/base_w
+scale_y = screenheight/base_h
+scale_factor = min(scale_x,scale_y)
+
 clock = pygame.time.Clock()
 
-plane_sprite = pygame.transform.scale_by(pygame.image.load("assets/plane.png"), 0.5)
-tower_sprite = pygame.image.load("assets/tower.png")
-ground_sprite = pygame.image.load("assets/ground.png")
-tutorial = pygame.transform.scale_by(pygame.image.load("assets/tutorial.png"), 0.68)
+plane_sprite = pygame.transform.scale_by(pygame.image.load("assets/plane.png"),0.5*scale_factor)
+tower_sprite = pygame.transform.scale_by(pygame.image.load("assets/tower.png"),scale_factor)
+ground_sprite = pygame.transform.scale_by(pygame.image.load("assets/ground.png"),scale_factor)
+tutorial = pygame.transform.scale(pygame.image.load("assets/tutorial.png"),(screenwidth,screenheight))
 
 map_length = 100
 
@@ -56,8 +61,8 @@ while True:
         for event in events:
             if start_knap.klik(event):
                 gamestate = "game"
-                player = player_class(display, plane_sprite, screenheight)
-                map = map_class(display, tower_sprite, ground_sprite, (0, screenheight - 100),(2500, screenheight - 668))
+                player = player_class(display, plane_sprite, screenheight,scale_factor)
+                map = map_class(display, tower_sprite, ground_sprite, (0, screenheight - 100*scale_factor),(2500*scale_factor, screenheight - 668*scale_factor),scale_factor)
 
             if tutorial_knap.klik(event):
                 gamestate = "tutorial"
