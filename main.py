@@ -97,7 +97,7 @@ while True:
         else:
             if map_pos.x+151 >= player_pos.x >= map_pos.x or map_pos.x+151 >= player_pos.x-700 >= map_pos.x:
                 if player_pos.y > map_pos.y:
-                    points = int((player_pos.y-map_pos.y)//5)
+                    points = int((player_pos.y-map_pos.y)//3.31)
                     gamestate = "win_screen"
                     exp_played = False
 
