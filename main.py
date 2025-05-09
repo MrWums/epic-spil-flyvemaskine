@@ -32,10 +32,9 @@ font = pygame.font.SysFont("Arial", 30)
 textcolor = (0, 0, 0)
 
 # Knapper
-start_knap = knap_class(screenwidth/2, screenheight*0.25, 100, 100, "Start", font, textcolor)
-tutorial_knap = knap_class(screenwidth/2, screenheight*0.5, 100, 100, "How to play", font, textcolor)
-quit_knap = knap_class(screenwidth/2, screenheight*0.75, 100, 100, "Quit", font, textcolor)
-back_knap = knap_class(screenwidth/4, screenheight*0.5, 100, 100, "Back", font, textcolor)
+start_knap = knap_class(screenwidth/2, screenheight*0.25, 150*scale_factor, 150*scale_factor, "Start", font, textcolor)
+tutorial_knap = knap_class(screenwidth/2, screenheight*0.5, 150*scale_factor, 150*scale_factor, "How to play", font, textcolor)
+quit_knap = knap_class(screenwidth/2, screenheight*0.75, 150*scale_factor, 150*scale_factor, "Quit", font, textcolor)
 
 # Farver
 dark_red = (105,0,17)
@@ -92,6 +91,7 @@ while True:
             gamestate = "menu"
         elif player_pos == "dead":
             gamestate = "dead"
+            exp_played = False
         else:
             if map_pos.x+151 >= player_pos.x >= map_pos.x or map_pos.x+151 >= player_pos.x-700 >= map_pos.x:
                 if player_pos.y > map_pos.y:
@@ -131,6 +131,13 @@ while True:
 
     if gamestate == "dead":
         display.fill(black)
+
+        if exp_played == False:
+            win_timer = pygame.time.get_ticks()
+            explosion = explosion_class(player.x+250, player.y+30,scale_factor)
+            explosion_group.add(explosion)
+            exp_played = True
+
         text(display, screenwidth/2,screenheight/2-50, "Wrong target, don't aim for Pentagon", font, dark_red, black)
         text(display,screenwidth/2,(screenheight/2)+50,"Press ESC to return to menu",font,dark_red,black)
 

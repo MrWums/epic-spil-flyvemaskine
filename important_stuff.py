@@ -38,7 +38,7 @@ class explosion_class(pygame.sprite.Sprite):
         self.counter += 1
         if self.sound_played == False:
             exp_sound = pygame.mixer.Sound("assets/big explosion.wav")
-            exp_sound.set_volume(0.05)
+            exp_sound.set_volume(0.5)
             exp_sound.play()
             self.sound_played = True
 
