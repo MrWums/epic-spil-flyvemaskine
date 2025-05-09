@@ -92,6 +92,8 @@ while True:
         elif player_pos == "dead":
             gamestate = "dead"
             exp_played = False
+        elif player_pos.x - map_pos.x > 2000:
+            gamestate = "missed"
         else:
             if map_pos.x+151 >= player_pos.x >= map_pos.x or map_pos.x+151 >= player_pos.x-700 >= map_pos.x:
                 if player_pos.y > map_pos.y:
@@ -146,4 +148,13 @@ while True:
                 if event.key == pygame.K_ESCAPE:
                     gamestate = "menu"
 
+    if gamestate == "missed":
+        display.fill(sky_blue)
+        text(display, screenwidth / 2, screenheight / 2 - 50, "You missed the target :(", font, white,sky_blue)
+        text(display, screenwidth / 2, (screenheight / 2) + 50, "Press ESC to return to menu", font, white, sky_blue)
+
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    gamestate = "menu"
     pygame.display.flip()
