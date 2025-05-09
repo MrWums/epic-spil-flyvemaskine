@@ -92,7 +92,7 @@ while True:
                 if player_pos.y > map_pos.y:
                     points = int((player_pos.y-map_pos.y)//5)
                     gamestate = "win_screen"
-                    wait = True
+                    exp_played = False
 
         # Tegn ground texture tingen x antal gange efter hinanden
         for i in range(map_length):
@@ -105,11 +105,11 @@ while True:
 
     if gamestate == "win_screen":
 
-        if wait == True:
+        if exp_played == False:
             win_timer = pygame.time.get_ticks()
             explosion = explosion_class(player.x+250, player.y+30)
             explosion_group.add(explosion)
-            wait = False
+            exp_played = True
 
         if pygame.time.get_ticks() - win_timer > 2000:
 
