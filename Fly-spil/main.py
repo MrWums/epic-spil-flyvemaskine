@@ -17,10 +17,10 @@ scale_factor = min(scale_x,scale_y)
 
 clock = pygame.time.Clock()
 
-plane_sprite = pygame.transform.scale_by(pygame.image.load("assets/plane.png"),0.5*scale_factor)
-tower_sprite = pygame.transform.scale_by(pygame.image.load("assets/tower.png"),scale_factor)
-ground_sprite = pygame.transform.scale_by(pygame.image.load("assets/ground.png"),scale_factor)
-tutorial = pygame.transform.scale(pygame.image.load("assets/tutorial.png"),(screenwidth,screenheight))
+plane_sprite = pygame.transform.scale_by(pygame.image.load("fly-spil/assets/plane.png"), 0.5 * scale_factor)
+tower_sprite = pygame.transform.scale_by(pygame.image.load("fly-spil/assets/tower.png"), scale_factor)
+ground_sprite = pygame.transform.scale_by(pygame.image.load("fly-spil/assets/ground.png"), scale_factor)
+tutorial = pygame.transform.scale(pygame.image.load("fly-spil/assets/tutorial.png"), (screenwidth, screenheight))
 
 map_length = 100
 

@@ -24,7 +24,7 @@ class explosion_class(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
         for i in range(3):
-            img = pygame.transform.scale_by(pygame.image.load(f"assets/explosion{i + 1}.png"),scale_factor)
+            img = pygame.transform.scale_by(pygame.image.load(f"Fly-spil/assets/explosion{i + 1}.png"), scale_factor)
             self.images.append(img)
         self.index = 0
         self.image = self.images[self.index]
@@ -37,7 +37,7 @@ class explosion_class(pygame.sprite.Sprite):
 
         self.counter += 1
         if self.sound_played == False:
-            exp_sound = pygame.mixer.Sound("assets/big explosion.wav")
+            exp_sound = pygame.mixer.Sound("fly-spil/assets/big explosion.wav")
             exp_sound.set_volume(0.5)
             exp_sound.play()
             self.sound_played = True
