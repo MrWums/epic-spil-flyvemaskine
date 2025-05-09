@@ -21,4 +21,4 @@ class map_class:
         self.display.blit(self.ground_image,(self.ground_pos.x+self.ground_width*map_number,self.ground_pos.y))
         if map_number == 0 and started == True:
             for i in range (2):
-                self.display.blit(self.tower_image,(self.tower_pos.x+i*500,self.tower_pos.y))
+                self.display.blit(self.tower_image,(self.tower_pos.x+i*700,self.tower_pos.y))
