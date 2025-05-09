@@ -1,7 +1,6 @@
 import pygame
 
 class map_class:
-    speed = 10
     def __init__(self,display,tower_image,ground_image,ground_position,tower_position,scale_factor):
         self.display = display
         self.ground_pos = pygame.Vector2(ground_position)
@@ -9,6 +8,7 @@ class map_class:
         self.ground_image = ground_image
         self.tower_image = tower_image
         self.ground_width = 835*scale_factor
+        self.speed = 15*scale_factor
 
     def update(self,started):
         self.ground_pos.x -= self.speed

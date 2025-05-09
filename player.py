@@ -1,13 +1,13 @@
 import pygame
 
 class player_class:
-    speed = 3
     gravity = 0
     jumping = False
     started = False
     def __init__(self,display,image,y,scale_factor):
         self.x = 100
         self.y = y/2*scale_factor
+        self.speed = 5*scale_factor
         self.ground = y-235*scale_factor
         self.velocity = 0
         self.display = display
@@ -19,7 +19,7 @@ class player_class:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
                     self.jumping = True
-                    self.gravity = 1
+                    self.gravity = 1.3*self.scale_factor
                     self.started = True
 
                 if event.key == pygame.K_ESCAPE:

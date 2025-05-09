@@ -20,16 +20,16 @@ class knap_class:
 
 class explosion_class(pygame.sprite.Sprite):
     sound_played = False
-    def __init__(self,x,y):
+    def __init__(self,x,y,scale_factor):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
         for i in range(3):
-            img = pygame.image.load(f"assets/explosion{i + 1}.png")
+            img = pygame.transform.scale_by(pygame.image.load(f"assets/explosion{i + 1}.png"),scale_factor)
             self.images.append(img)
         self.index = 0
         self.image = self.images[self.index]
         self.rect = self.image.get_rect()
-        self.rect.center = (x,y)
+        self.rect.center = (x*scale_factor,y)
         self.counter = 0
 
     def update(self):

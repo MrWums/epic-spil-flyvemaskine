@@ -112,7 +112,7 @@ while True:
 
         if exp_played == False:
             win_timer = pygame.time.get_ticks()
-            explosion = explosion_class(player.x+250, player.y+30)
+            explosion = explosion_class(player.x+250, player.y+30,scale_factor)
             explosion_group.add(explosion)
             exp_played = True
 
